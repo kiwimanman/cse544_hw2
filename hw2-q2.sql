@@ -19,7 +19,7 @@ CREATE TABLE  Vehicle (
 
 CREATE TABLE Driver (
   licenceNo TEXT PRIMARY KEY,
-  person_id REFERENCES Person(ssn)
+  person_id INTEGER REFERENCES Person(ssn)
 );
 
 CREATE TABLE nonProfessionalDriver (
@@ -32,12 +32,12 @@ CREATE TABLE ProfessionalDriver (
 );
 
 CREATE TABLE Car (
-  licencePlate PRIMARY KEY REFERENCES Vehicle(licencePLate),
+  licencePlate TEXT PRIMARY KEY REFERENCES Vehicle(licencePLate),
   make         TEXT
 );
 
 CREATE TABLE Truck (
-  licencePlate PRIMARY KEY REFERENCES Vehicle(licencePLate),
+  licencePlate TEXT PRIMARY KEY REFERENCES Vehicle(licencePLate),
   capacity     INTEGER,
   operated_by  TEXT REFERENCES ProfessionalDriver(licenceNo)
 );
