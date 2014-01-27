@@ -25,30 +25,34 @@ Decompose R using D -> B, Results in:
 
 R'(A,C,D,E), A(D,B)
 
+A is now in BCNF.
+
 Decompoase R' using CE => A, Results in:
 
 R''(C,D,E), A(D,B), B(C,E,A)
 
-All remaining dependencies are trivial making this BCNF. This fixes anomalies that could show up between the columns B and A.
+B is now in BCNF.
+
+None of the remaining attribute sets in R'' have an X such that X != X+ != [all attributes remaining] making this BCNF.
+This creates two super key sets (D) and (C,E) with a sort of many to many table in between them.
 
 3. ii.
 
 S(A,B,C,D,E)
 
-(B,D,E), (A,C,D,E)
-
-(A,C,D) (A, E)
-
 Compute X+ for all X:
 
 A+ = AE, B+ = B, C+ = C, D+ = D, E+ = E
-AB = ABE, AC+ = ACE, AD+ = ADE, AE+ = AE
+
+AB+ = ABE, AC+ = ACE, AD+ = ADE, AE+ = AE
 BC+ = ABCE, BD+ = BD, BE+ = BE
-CD+ = CD, CE+ = CE
-DE+ = BDE
+CD+ = CD, CE+ = CE, DE+ = BDE
+
 ABC+ = ABCE, ABD+ = ABDE, ABE+ = ABE
 ACD+ = ACDE, ACE+ = ACE, ADE+ = ABDE
-BCD+ = BCD, BCE+ = 
+BCD+ = ABCDE, BCE+ = ABCE, CDE+ = BCDE
+
+Minimal key is BCD. BCD -> AE.
 
 
 4. A.
