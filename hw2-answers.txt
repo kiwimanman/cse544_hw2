@@ -69,3 +69,39 @@ B -> A,
 C -> AD,
 D -> AC
 
+
+
+select month, count(distinct discount) from sales group by month;
+
+ month | count 
+-------+-------
+ apr   |     1
+ aug   |     1
+ dec   |     1
+ feb   |     1
+ jan   |     1
+ jul   |     1
+ jun   |     1
+ mar   |     1
+ may   |     1
+ nov   |     1
+ oct   |     1
+ sep   |     1
+(12 rows)
+
+month => discount
+
+select * from (
+  select name, count(distinct price)
+  from sales
+  group by name
+) as functional_check
+where functional_check.count > 1;
+
+ name | count 
+------+-------
+(0 rows)
+
+name => price
+
+
