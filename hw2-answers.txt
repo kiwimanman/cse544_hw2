@@ -16,3 +16,56 @@ as the operated_by property in the schema.
 Drives is a many-to-many relationship and requires a seperate table to model correctly in the schema. This table is
 called Cars_nonProfessionalDrivers and contains an id field as a primary key and two attributes licencePlate and licenceNo
 which are foreign key for the Car(licencePlate) and nonProfessionalDriver(licenceNo) respectively.
+
+3. i.
+
+R(A,B,C,D,E)
+
+Decompose R using D -> B, Results in:
+
+R'(A,C,D,E), A(D,B)
+
+Decompoase R' using CE => A, Results in:
+
+R''(C,D,E), A(D,B), B(C,E,A)
+
+All remaining dependencies are trivial making this BCNF. This fixes anomalies that could show up between the columns B and A.
+
+3. ii.
+
+S(A,B,C,D,E)
+
+(B,D,E), (A,C,D,E)
+
+(A,C,D) (A, E)
+
+Compute X+ for all X:
+
+A+ = AE, B+ = B, C+ = C, D+ = D, E+ = E
+AB = ABE, AC+ = ACE, AD+ = ADE, AE+ = AE
+BC+ = ABCE, BD+ = BD, BE+ = BE
+CD+ = CD, CE+ = CE
+DE+ = BDE
+ABC+ = ABCE, ABD+ = ABDE, ABE+ = ABE
+ACD+ = ACDE, ACE+ = ACE, ADE+ = ABDE
+BCD+ = BCD, BCE+ = 
+
+
+4. A.
+
+There are no functional dependencies.
+
+4. B.
+
+A -> B,
+B -> C,
+C -> D,
+D -> A
+
+4.C.
+
+A -> B,
+B -> A,
+C -> AD,
+D -> AC
+
