@@ -1,0 +1,18 @@
+Keith Stone
+CSE 544 Winter 2014
+
+B.
+
+The various properties for the insured relationship between Vehicle and Insurance Co live in the Vehicle table.
+This is due to the one to many counting. The foreign key lives here in the property called insured_by.
+The other two properties, maxLossDamage and maxLiability, both also live on vehicle due to being one to one with the
+foreign key insured_by.
+
+C. 
+
+Operates is a one-to-many relationship between Truck and nonProfessionalDriver. The foreign key lives on the truck
+as the operated_by property in the schema.
+
+Drives is a many-to-many relationship and requires a seperate table to model correctly in the schema. This table is
+called Cars_nonProfessionalDrivers and contains an id field as a primary key and two attributes licencePlate and licenceNo
+which are foreign key for the Car(licencePlate) and nonProfessionalDriver(licenceNo) respectively.
