@@ -157,9 +157,9 @@ Q(eid, name) :- Employee(eid, name, office), not ManageAGrunt(sub_mid, eid)
 
 6.v.c.
 
-Managers(eid) = pi sub 1 ( employee join sub 1 = 5 manager)
-Grunts = Employee - Employee join sub 1 = 5 Manager
-
+Grunts = Employee - pi sub 1,2,3 (Employee join sub 1 = 5 Manager)
+EmployeesWhoManageGrunts = pi sub 1,2,3 ((Employee join sub 1 - 5 Manager) join sub 4 = 1 Grunts)
+SecondLevelManagers = pi sub 1,2 (Employees - EmployeesWhoManageGrunts - Grunts)
 
 
 
