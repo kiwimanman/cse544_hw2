@@ -147,11 +147,18 @@ Answer = pi sub 1,2,3 ManagersWithPotentialOffice join sub 1,4 SingleSiteManager
 
 6.v.a.
 
+Q(eid, name) = E(office) Employee(eid, name, office) ^ A(first_tier_eid) Manager(first_tier_eid, eid) ^ E(name) E(another_office) Employee(first_tier_eid, name, another_office) => E(second_tier_eid) Manager(second_tier_eid, first_tier_eid)
 
 
+6.v.b.
 
+ManageAGrunt(eid, mid) :- Manager(eid, mid) ^ Employee (eid, name, office), not Manager(some_other_fellow, eid)
+Q(eid, name) :- Employee(eid, name, office), not ManageAGrunt(sub_mid, eid)
 
+6.v.c.
 
+Managers(eid) = pi sub 1 ( employee join sub 1 = 5 manager)
+Grunts = Employee - Employee join sub 1 = 5 Manager
 
 
 
