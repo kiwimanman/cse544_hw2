@@ -89,3 +89,40 @@ B -> A,
 C -> AD,
 D -> AC
 
+
+6.i.a.
+
+Q(eid, name) = E(office) E(m1) E(m2) Employee(eid, name, office) ^ Manager(eid, m1) ^ Manager(eid, m2) ^ not(Equal(m1,m2))
+
+6.i.b.
+
+Q(eid, name) :- Employee(eid, name, office), Manager(eid, m1), Manager(eid, m2), m1 != m2
+
+6.i.c.
+
+pi sub eid, name ((employee join sub employee.eid = manager.eid) join sub employee.eid = manager.eid & prior.mid != manager.mid)
+
+6.ii.a.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
