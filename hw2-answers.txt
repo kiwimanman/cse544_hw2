@@ -25,13 +25,15 @@ Decompose R using D -> B, Results in:
 
 R'(A,C,D,E), A(D,B)
 
-A is now in BCNF.
+A is now in BCNF. This addresses the update anomaly where previously it would be possible to 
+set say A to different values with fixed D and B. 
 
 Decompoase R' using CE => A, Results in:
 
 R''(C,D,E), A(D,B), B(C,E,A)
 
-B is now in BCNF.
+B is now in BCNF. This fixes an insert anomaly where it is impossible to insert a C,E,A record
+without also linking it to D.
 
 None of the remaining attribute sets in R'' have an X such that X != X+ != [all attributes remaining] making this BCNF.
 This creates two super key sets (D) and (C,E) with a sort of many to many table in between them.
@@ -40,7 +42,22 @@ This creates two super key sets (D) and (C,E) with a sort of many to many table 
 
 S(A,B,C,D,E)
 
-Compute X+ for all X:
+First decompose S using A -> E. This fixes an insert anomly where adding A, E records is impossible without everything else.
+
+This produces:
+
+S'(A,B,C,D), A(A,E)
+
+A is in BCNF, but must check S'.
+
+Use BC -> A to decompose S'.
+
+S''(B,C,D), A(A,E), B(B,C,A)
+
+Relation B is in BCNF and so is S''. The relations are in BCNF. This fixes the insert anomly where a new relation
+(B,C,D) cannot be inserted without also specifiying (A).
+
+It can be shown that (B,C,D) is the minimal key for the table by calculating the closure of all sets of attributes.
 
 A+ = AE, B+ = B, C+ = C, D+ = D, E+ = E
 
@@ -53,7 +70,6 @@ ACD+ = ACDE, ACE+ = ACE, ADE+ = ABDE
 BCD+ = ABCDE, BCE+ = ABCE, CDE+ = BCDE
 
 Minimal key is BCD. BCD -> AE.
-
 
 4. A.
 
