@@ -124,23 +124,28 @@ Q(office) :- Employee(eid, 'Alice', employee_office), Manager(eid, mid), Employe
 
 6.iii.c.
 
-pi sub 8 ((employee join sub 1 = 4) join sub 5, 6 employee) $$$$REVISIT FOR ALICA$$$$
+pi sub 8 ((employee join sub 1 = 4) join sub 5, 6 employee) $$$$REVISIT FOR ALICE$$$$
 
 6.iv.a.
 
-Q(eid, name, office) = E(manager_office) Employee(eid, name, manager_office) ^ A(underling_id1) A(underling_id2) Manager(underling_id1, eid) ^ Manager(underling_id2, eid) => E(name1) E(name2) Employee(underling_id1, name1, office) ^ Employee(underling_id2, name2, office)
+Q(eid, name, office) = E(manager_office) Employee(eid, name, manager_office) E(underling_id1) E(name1) Employee(underling_id1, name1, office) A(underling_id2) Manager(underling_id2, eid) => E(name2) Employee(underling_id2, name2, office)
 
 6.iv.b.
 
-DifferentOffice(eid1, eid2, office) :- Employee(eid1, name1, office), Employee(eid2, name2, another_office), eid1 != eid2
-WorkUnderApart(mid, office) :- Manager(eid1, mid), Manager(eid2, mid), DifferentOffice(eid1, eid2, office)
-Q(eid, name, office) := Employee(eid, name, manager_office), not WorkUnderApart(eid, office)
+DifferentOffice(eid1, eid2) :- Employee(eid1, name1, office), Employee(eid2, name2, another_office), eid1 != eid2, office != another_office
+WorkUnderApartFrom(mid, eid) :- Manager(eid2, mid), DifferentOffice(eid, eid2)
+Q(eid, name, office) := Employee(eid, name, manager_office), Manager(underling_id, eid), Employee(underling_id, some_name, office), not WorkUnderApartFrom(eid, underling_id)
 
 6.iv.c.
 
+EmployeesAtDifferentOffice(eid1, eid2) = pi sub 1,4 (employee join sub 1 != 4, 3 != 6 employee)
+WorksUnderSameManager(eid1, mid, eid2) = pi sub 1,2,3 ( manager join sub 1 != 3, 2 = 4 manager)
+SomeUnderWorkApart(mid) = pi sub 2 (WorksUnderSameManager join 1 = 4, 2 = 5) 
+ManagersWithPotentialOffice(mid, name, office) = pi sub 1,2,8 ((employee join sub 1 = 5 manager) join sub 4 = 6 employee)
+SingleSiteManagers = (pi sub 1 ManagersWithPotentialOffice) - SomeUnderWorkApart
+Answer = pi sub 1,2,3 ManagersWithPotentialOffice join sub 1,4 SingleSiteManagers
 
-
-
+6.v.a.
 
 
 
