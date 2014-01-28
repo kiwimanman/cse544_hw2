@@ -100,14 +100,43 @@ Q(eid, name) :- Employee(eid, name, office), Manager(eid, m1), Manager(eid, m2),
 
 6.i.c.
 
-pi sub eid, name ((employee join sub employee.eid = manager.eid) join sub employee.eid = manager.eid & prior.mid != manager.mid)
+pi sub eid, name ((employee join sub employee.eid = manager.eid manager) join sub employee.eid = manager.eid manager & prior.mid != manager.mid)
 
 6.ii.a.
 
+Q(eid, name) = E(office) Employee(eid, name, office) ^ not(E(mid) manager(eid, mid))
 
+6.ii.b.
 
+Q(eid, name) :- Employee(eid, name, office), not Manager(eid, mid)
 
+6.ii.c.
 
+pi sub eid,name (employee minus pi sub eid,name  (employee join sub employee.eid = manager.eid manager)
+
+6.iii.a.
+
+Q(office) = E(eid) E(employee_office) E(mid) E(manager_name) Employee(eid, 'Alice', employee_office) ^ Manager(eid, mid) ^ Employee(mid, manager_name, office)
+
+6.iii.b.
+
+Q(office) :- Employee(eid, 'Alice', employee_office), Manager(eid, mid), Employee(mid, name, office)
+
+6.iii.c.
+
+pi sub 8 ((employee join sub 1 = 4) join sub 5, 6 employee) $$$$REVISIT FOR ALICA$$$$
+
+6.iv.a.
+
+Q(eid, name, office) = E(manager_office) Employee(eid, name, manager_office) ^ A(underling_id1) A(underling_id2) Manager(underling_id1, eid) ^ Manager(underling_id2, eid) => E(name1) E(name2) Employee(underling_id1, name1, office) ^ Employee(underling_id2, name2, office)
+
+6.iv.b.
+
+DifferentOffice(eid1, eid2, office) :- Employee(eid1, name1, office), Employee(eid2, name2, another_office), eid1 != eid2
+WorkUnderApart(mid, office) :- Manager(eid1, mid), Manager(eid2, mid), DifferentOffice(eid1, eid2, office)
+Q(eid, name, office) := Employee(eid, name, manager_office), not WorkUnderApart(eid, office)
+
+6.iv.c.
 
 
 
